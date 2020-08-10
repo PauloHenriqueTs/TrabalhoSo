@@ -54,9 +54,9 @@
       <VBox fx:id="vBox" prefHeight="333.0" prefWidth="191.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <Label text="Tempo Em Casa" />
-            <Spinner fx:id="SpinnerEmCasa" editable="true" />
+            <Spinner fx:id="SpinnerEmCasa" editable="false" />
             <Label text="Tempo No Bar" />
-            <Spinner fx:id="SpinnerNoBar" editable="true" />
+            <Spinner fx:id="SpinnerNoBar" editable="false" />
          </children></VBox>
    </children>
 </GridPane>

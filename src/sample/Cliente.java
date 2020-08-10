@@ -62,18 +62,56 @@ public class Cliente implements Runnable  {
         }
     }
     public  void cpuTempoNoBar(){
-        long Time1 = System.currentTimeMillis();
-        int x =0;
-        while ((System.currentTimeMillis() - Time1) <this.TempoBar* 1000 ){
-            x++;
-        }
-    }
+        this.cpu1Sec();
 
+        int changeNumber = this.TempoBar*4;
+        for (int i = 0; i <changeNumber; i++) {
+
+            int x =0;
+            long Time1 = System.currentTimeMillis();
+            int delta= (int) (System.currentTimeMillis() - Time1);
+
+            while (delta< 250 ){
+                x++;
+                delta=(int) (System.currentTimeMillis() - Time1);
+            }
+
+            if(i%2 == 0){
+                this.image.setImage(returnImageBar());
+            }else {
+                this.image.setImage(returnImageCharacter());
+            }
+
+        }
+
+
+
+    }
     public  void cpuTempoEmCasa(){
-        long Time1 = System.currentTimeMillis();
-        int x =0;
-        while ((System.currentTimeMillis() - Time1) < this.TempoEmCasa*1000 ){
-            x++;
+        this.cpu1Sec();
+
+        int changeNumber = this.TempoEmCasa*4;
+        for (int i = 0; i <changeNumber; i++) {
+
+            int x =0;
+            long Time1 = System.currentTimeMillis();
+            int delta= (int) (System.currentTimeMillis() - Time1);
+            while (delta< 250 ){
+                x++;
+                delta=(int) (System.currentTimeMillis() - Time1);
+            }
+            final int n = i;
+           Platform.runLater(()->{
+            if(n%2 == 0){
+                this.image.setImage(returnImageEmCasa());
+            }else {
+                this.image.setImage(returnImageCharacter());
+            }
+           });
+
+
+
+
         }
     }
 
@@ -204,6 +242,14 @@ public class Cliente implements Runnable  {
         Image image = this.returnImageCharacter();
     return  this.returnImageView(image);
     }
+    private  ImageView ImageBar(){
+        Image image = this.returnImageBar();
+        return  this.returnImageView(image);
+    }
+    private  ImageView ImageEmCasa(){
+        Image image = this.returnImageEmCasa();
+        return  this.returnImageView(image);
+    }
     private ImageView initialChair(){
         Image image = this.returnImageChair();
         return  this.returnImageView(image);
@@ -218,6 +264,26 @@ public class Cliente implements Runnable  {
         FileInputStream input = null;
         try {
             input = new FileInputStream("src/sample/assets/character"+this.id+".png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Image image = new Image(input);
+        return  image;
+    }
+    private  Image returnImageBar(){
+        FileInputStream input = null;
+        try {
+            input = new FileInputStream("src/sample/assets/characterAndBeer.png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        Image image = new Image(input);
+        return  image;
+    }
+    private  Image returnImageEmCasa(){
+        FileInputStream input = null;
+        try {
+            input = new FileInputStream("src/sample/assets/character.png");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -251,11 +317,6 @@ public class Cliente implements Runnable  {
                     this.AguardandoCadeira();
                     ProblemSingleton.getMutex().release();
                     ProblemSingleton.getBlock().acquire();
-
-
-
-                   System.out.println("drink value:"+ProblemSingleton.getDrinking());
-                   System.out.println("waiting value:"+ProblemSingleton.getWaiting());
 
 
                 } else {

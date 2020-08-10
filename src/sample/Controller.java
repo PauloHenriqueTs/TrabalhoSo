@@ -48,8 +48,8 @@ public class Controller implements Initializable  {
     if(num_clientes <10){
       btn.setDisable(true);
       num_clientes++;
-      int TempoEmCasa = SpinnerEmCasa.getValue();
-      int TempoNoBar = SpinnerNoBar.getValue();
+      int TempoEmCasa = SpinnerEmCasa.getValueFactory().getValue();
+      int TempoNoBar = SpinnerNoBar.getValueFactory().getValue();
       int n = num_clientes;
 
       Cliente cliente = new Cliente(n,TempoEmCasa,TempoNoBar,casas,cadeiras,txflow);
